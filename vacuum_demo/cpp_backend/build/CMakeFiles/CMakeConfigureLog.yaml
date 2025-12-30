@@ -1,0 +1,1753 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/"
+    found: "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      msbuild 踰꾩쟾 18.0.5+e22287bf1(.NET Framework??
+      鍮뚮뱶 ?쒖옉: 2025-12-14 ?ㅽ썑 9:41:21
+      
+      1 ?몃뱶??"C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" ?꾨줈?앺듃(湲곕낯 ?\xc2\x80???낅땲??
+      PrepareForBuild:
+        "Debug\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+        Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+        "Debug\\CompilerIdCXX.tlog\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+      InitializeBuildStatus:
+        "AlwaysCreate"??媛\xc2\x80) 吏\xc2\x80?뺣릺?덇린 ?뚮Ц??"Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild"??瑜? 留뚮뱾怨??덉뒿?덈떎.
+        "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc145.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" ?뚯씪????젣?섍퀬 ?덉뒿?덈떎.
+        "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+      "C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" ?꾨줈?앺듃瑜?鍮뚮뱶?덉뒿?덈떎(湲곕낯 ?\xc2\x80??.
+      
+      鍮뚮뱶?덉뒿?덈떎.
+          寃쎄퀬 0媛?
+          ?ㅻ쪟 0媛?
+      
+      寃쎄낵 ?쒓컙: 00:00:01.52
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/4.2.1/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:103 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:7 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/nsyun/flutter/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/nsyun/.dotnet/tools/"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.com"
+    found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.exe"
+    search_context:
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:37 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:65 (__resolve_tool_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:104 (__resolve_linker_path)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:7 (project)"
+    mode: "program"
+    variable: "_CMAKE_TOOL_WITH_PATH"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lld-link"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/nsyun/flutter/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/nsyun/.dotnet/tools/"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link.com"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link.exe"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lld-link"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.com"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link.exe"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/lld-link"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link.com"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link.exe"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/lld-link"
+      - "C:/Users/nsyun/flutter/bin/lld-link.com"
+      - "C:/Users/nsyun/flutter/bin/lld-link.exe"
+      - "C:/Users/nsyun/flutter/bin/lld-link"
+      - "C:/Windows/System32/lld-link.com"
+      - "C:/Windows/System32/lld-link.exe"
+      - "C:/Windows/System32/lld-link"
+      - "C:/Windows/lld-link.com"
+      - "C:/Windows/lld-link.exe"
+      - "C:/Windows/lld-link"
+      - "C:/Windows/System32/wbem/lld-link.com"
+      - "C:/Windows/System32/wbem/lld-link.exe"
+      - "C:/Windows/System32/wbem/lld-link"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/lld-link"
+      - "C:/Windows/System32/OpenSSH/lld-link.com"
+      - "C:/Windows/System32/OpenSSH/lld-link.exe"
+      - "C:/Windows/System32/OpenSSH/lld-link"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/lld-link.com"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/lld-link.exe"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/lld-link"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/lld-link.com"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/lld-link.exe"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/lld-link"
+      - "C:/Program Files/dotnet/lld-link.com"
+      - "C:/Program Files/dotnet/lld-link.exe"
+      - "C:/Program Files/dotnet/lld-link"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/lld-link"
+      - "C:/Program Files/Git/cmd/lld-link.com"
+      - "C:/Program Files/Git/cmd/lld-link.exe"
+      - "C:/Program Files/Git/cmd/lld-link"
+      - "C:/Program Files/CMake/bin/lld-link.com"
+      - "C:/Program Files/CMake/bin/lld-link.exe"
+      - "C:/Program Files/CMake/bin/lld-link"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/lld-link.com"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/lld-link.exe"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/lld-link"
+      - "C:/Users/nsyun/.dotnet/tools/lld-link.com"
+      - "C:/Users/nsyun/.dotnet/tools/lld-link.exe"
+      - "C:/Users/nsyun/.dotnet/tools/lld-link"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/lld-link.com"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/lld-link.exe"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/lld-link"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/lld-link.com"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/lld-link.exe"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/lld-link"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/lld-link.com"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/lld-link.exe"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/lld-link"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:7 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "link"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/nsyun/flutter/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/nsyun/.dotnet/tools/"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.com"
+    found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/link.exe"
+    search_context:
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:7 (project)"
+    mode: "program"
+    variable: "CMAKE_MT"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "mt"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/nsyun/flutter/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/nsyun/.dotnet/tools/"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt.com"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt.exe"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/mt"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt.com"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt.exe"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/mt"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt.com"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt.exe"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/mt"
+      - "C:/Users/nsyun/flutter/bin/mt.com"
+      - "C:/Users/nsyun/flutter/bin/mt.exe"
+      - "C:/Users/nsyun/flutter/bin/mt"
+      - "C:/Windows/System32/mt.com"
+      - "C:/Windows/System32/mt.exe"
+      - "C:/Windows/System32/mt"
+      - "C:/Windows/mt.com"
+      - "C:/Windows/mt.exe"
+      - "C:/Windows/mt"
+      - "C:/Windows/System32/wbem/mt.com"
+      - "C:/Windows/System32/wbem/mt.exe"
+      - "C:/Windows/System32/wbem/mt"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/mt"
+      - "C:/Windows/System32/OpenSSH/mt.com"
+      - "C:/Windows/System32/OpenSSH/mt.exe"
+      - "C:/Windows/System32/OpenSSH/mt"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/mt.com"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/mt.exe"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/mt"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/mt.com"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/mt.exe"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/mt"
+      - "C:/Program Files/dotnet/mt.com"
+      - "C:/Program Files/dotnet/mt.exe"
+      - "C:/Program Files/dotnet/mt"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/mt"
+      - "C:/Program Files/Git/cmd/mt.com"
+      - "C:/Program Files/Git/cmd/mt.exe"
+      - "C:/Program Files/Git/cmd/mt"
+      - "C:/Program Files/CMake/bin/mt.com"
+      - "C:/Program Files/CMake/bin/mt.exe"
+      - "C:/Program Files/CMake/bin/mt"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/mt.com"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/mt.exe"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/mt"
+      - "C:/Users/nsyun/.dotnet/tools/mt.com"
+      - "C:/Users/nsyun/.dotnet/tools/mt.exe"
+      - "C:/Users/nsyun/.dotnet/tools/mt"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/mt.com"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/mt.exe"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/mt"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/mt.com"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/mt.exe"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/mt"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/mt.com"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/mt.exe"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/mt"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeFindBinUtils.cmake:243 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:7 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "lib"
+    candidate_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/nsyun/flutter/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/nsyun/.dotnet/tools/"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/"
+    searched_directories:
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lib.com"
+    found: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/lib.exe"
+    search_context:
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineRCCompiler.cmake:40 (find_program)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Platform/Windows-MSVC.cmake:580 (enable_language)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Platform/Windows-MSVC.cmake:553 (__windows_compiler_msvc_enable_rc)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Platform/Windows-MSVC-CXX.cmake:6 (__windows_compiler_msvc)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeCXXInformation.cmake:48 (include)"
+      - "CMakeLists.txt:7 (project)"
+    mode: "program"
+    variable: "CMAKE_RC_COMPILER"
+    description: "RC compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "rc"
+    candidate_directories:
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/"
+      - "C:/Users/nsyun/flutter/bin/"
+      - "C:/Windows/System32/"
+      - "C:/Windows/"
+      - "C:/Windows/System32/wbem/"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/"
+      - "C:/Windows/System32/OpenSSH/"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/"
+      - "C:/Program Files/dotnet/"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/"
+      - "C:/Program Files/Git/cmd/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/"
+      - "C:/Users/nsyun/.dotnet/tools/"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/"
+      - "C:/Program Files/bin/"
+      - "C:/Program Files/sbin/"
+      - "C:/Program Files/"
+      - "C:/Program Files (x86)/bin/"
+      - "C:/Program Files (x86)/sbin/"
+      - "C:/Program Files (x86)/"
+      - "C:/Program Files/CMake/bin/"
+      - "C:/Program Files/CMake/sbin/"
+      - "C:/Program Files/CMake/"
+      - "C:/Program Files (x86)/vacuum_backend/bin/"
+      - "C:/Program Files (x86)/vacuum_backend/sbin/"
+      - "C:/Program Files (x86)/vacuum_backend/"
+    searched_directories:
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc.com"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc.exe"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/debugCommand/rc"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc.com"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc.exe"
+      - "C:/Users/nsyun/AppData/Roaming/Code/User/globalStorage/github.copilot-chat/copilotCli/rc"
+      - "C:/Users/nsyun/flutter/bin/rc.com"
+      - "C:/Users/nsyun/flutter/bin/rc.exe"
+      - "C:/Users/nsyun/flutter/bin/rc"
+      - "C:/Windows/System32/rc.com"
+      - "C:/Windows/System32/rc.exe"
+      - "C:/Windows/System32/rc"
+      - "C:/Windows/rc.com"
+      - "C:/Windows/rc.exe"
+      - "C:/Windows/rc"
+      - "C:/Windows/System32/wbem/rc.com"
+      - "C:/Windows/System32/wbem/rc.exe"
+      - "C:/Windows/System32/wbem/rc"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc.com"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc.exe"
+      - "C:/Windows/System32/WindowsPowerShell/v1.0/rc"
+      - "C:/Windows/System32/OpenSSH/rc.com"
+      - "C:/Windows/System32/OpenSSH/rc.exe"
+      - "C:/Windows/System32/OpenSSH/rc"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/rc.com"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/rc.exe"
+      - "C:/Program Files/Microsoft SQL Server/170/Tools/Binn/rc"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/rc.com"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/rc.exe"
+      - "C:/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/rc"
+      - "C:/Program Files/dotnet/rc.com"
+      - "C:/Program Files/dotnet/rc.exe"
+      - "C:/Program Files/dotnet/rc"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.com"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc.exe"
+      - "C:/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/rc"
+      - "C:/Program Files/Git/cmd/rc.com"
+      - "C:/Program Files/Git/cmd/rc.exe"
+      - "C:/Program Files/Git/cmd/rc"
+      - "C:/Program Files/CMake/bin/rc.com"
+      - "C:/Program Files/CMake/bin/rc.exe"
+      - "C:/Program Files/CMake/bin/rc"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/rc.com"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/rc.exe"
+      - "C:/Users/nsyun/AppData/Local/Microsoft/WindowsApps/rc"
+      - "C:/Users/nsyun/.dotnet/tools/rc.com"
+      - "C:/Users/nsyun/.dotnet/tools/rc.exe"
+      - "C:/Users/nsyun/.dotnet/tools/rc"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/rc.com"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/rc.exe"
+      - "C:/Users/nsyun/AppData/Local/Programs/Microsoft VS Code/bin/rc"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/rc.com"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/rc.exe"
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/bin/rc"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/rc.com"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/rc.exe"
+      - "C:/Program Files/Microsoft Visual Studio/18/Community/VC/bin/amd64/rc"
+      - "C:/Program Files/bin/rc.com"
+      - "C:/Program Files/bin/rc.exe"
+      - "C:/Program Files/bin/rc"
+      - "C:/Program Files/sbin/rc.com"
+      - "C:/Program Files/sbin/rc.exe"
+      - "C:/Program Files/sbin/rc"
+      - "C:/Program Files/rc.com"
+      - "C:/Program Files/rc.exe"
+      - "C:/Program Files/rc"
+      - "C:/Program Files (x86)/bin/rc.com"
+      - "C:/Program Files (x86)/bin/rc.exe"
+      - "C:/Program Files (x86)/bin/rc"
+      - "C:/Program Files (x86)/sbin/rc.com"
+      - "C:/Program Files (x86)/sbin/rc.exe"
+      - "C:/Program Files (x86)/sbin/rc"
+      - "C:/Program Files (x86)/rc.com"
+      - "C:/Program Files (x86)/rc.exe"
+      - "C:/Program Files (x86)/rc"
+      - "C:/Program Files/CMake/bin/rc.com"
+      - "C:/Program Files/CMake/bin/rc.exe"
+      - "C:/Program Files/CMake/bin/rc"
+      - "C:/Program Files/CMake/sbin/rc.com"
+      - "C:/Program Files/CMake/sbin/rc.exe"
+      - "C:/Program Files/CMake/sbin/rc"
+      - "C:/Program Files/CMake/rc.com"
+      - "C:/Program Files/CMake/rc.exe"
+      - "C:/Program Files/CMake/rc"
+      - "C:/Program Files (x86)/vacuum_backend/bin/rc.com"
+      - "C:/Program Files (x86)/vacuum_backend/bin/rc.exe"
+      - "C:/Program Files (x86)/vacuum_backend/bin/rc"
+      - "C:/Program Files (x86)/vacuum_backend/sbin/rc.com"
+      - "C:/Program Files (x86)/vacuum_backend/sbin/rc.exe"
+      - "C:/Program Files (x86)/vacuum_backend/sbin/rc"
+      - "C:/Program Files (x86)/vacuum_backend/rc.com"
+      - "C:/Program Files (x86)/vacuum_backend/rc.exe"
+      - "C:/Program Files (x86)/vacuum_backend/rc"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/vacuum_backend"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files (x86)/vacuum_backend"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/CMakeScratch/TryCompile-lwbhrm"
+      binary: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/CMakeScratch/TryCompile-lwbhrm"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/CMakeScratch/TryCompile-lwbhrm'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_e50f1.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
+        msbuild 踰꾩쟾 18.0.5+e22287bf1(.NET Framework??
+        鍮뚮뱶 ?쒖옉: 2025-12-14 ?ㅽ썑 9:41:25
+        
+        1 ?몃뱶??"C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lwbhrm\\cmTC_e50f1.vcxproj" ?꾨줈?앺듃(湲곕낯 ?\xc2\x80???낅땲??
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          "C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lwbhrm\\Debug\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_e50f1.dir\\Debug\\cmTC_e50f1.tlog\\" ?붾젆?곕━瑜?留뚮뱾怨??덉뒿?덈떎.
+        InitializeBuildStatus:
+          "AlwaysCreate"??媛\xc2\x80) 吏\xc2\x80?뺣릺?덇린 ?뚮Ц??"cmTC_e50f1.dir\\Debug\\cmTC_e50f1.tlog\\unsuccessfulbuild"??瑜? 留뚮뱾怨??덉뒿?덈떎.
+          "cmTC_e50f1.dir\\Debug\\cmTC_e50f1.tlog\\unsuccessfulbuild"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_e50f1.dir\\Debug\\\\" /Fd"cmTC_e50f1.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++ 理쒖쟻??而댄뙆?쇰윭 踰꾩쟾 19.50.35720(x64)
+          Copyright (c) Microsoft Corporation. All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_e50f1.dir\\Debug\\\\" /Fd"cmTC_e50f1.dir\\Debug\\vc145.pdb" /external:W1 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lwbhrm\\Debug\\cmTC_e50f1.exe" /INCREMENTAL /ILK:"cmTC_e50f1.dir\\Debug\\cmTC_e50f1.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/CMakeScratch/TryCompile-lwbhrm/Debug/cmTC_e50f1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/CMakeScratch/TryCompile-lwbhrm/Debug/cmTC_e50f1.lib" /MACHINE:X64  /machine:x64 cmTC_e50f1.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_e50f1.vcxproj -> C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lwbhrm\\Debug\\cmTC_e50f1.exe
+        FinalizeBuildStatus:
+          "cmTC_e50f1.dir\\Debug\\cmTC_e50f1.tlog\\unsuccessfulbuild" ?뚯씪????젣?섍퀬 ?덉뒿?덈떎.
+          "cmTC_e50f1.dir\\Debug\\cmTC_e50f1.tlog\\cmTC_e50f1.lastbuildstate"???곌껐(touching)?섍퀬 ?덉뒿?덈떎.
+        "C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\CMakeFiles\\CMakeScratch\\TryCompile-lwbhrm\\cmTC_e50f1.vcxproj" ?꾨줈?앺듃瑜?鍮뚮뱶?덉뒿?덈떎(湲곕낯 ?\xc2\x80??.
+        
+        鍮뚮뱶?덉뒿?덈떎.
+            寃쎄퀬 0媛?
+            ?ㅻ쪟 0媛?
+        
+        寃쎄낵 ?쒓컙: 00:00:01.42
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|"|[0-9]+>[ 	-]*Build:[ 	0-9]+ ms[ 	]*)?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/Internal/CMakeDetermineLinkerId.cmake:38 (message)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-4.2/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.50.35720.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5/Qt5Config.cmake:28 (find_package)"
+      - "CMakeLists.txt:16 (find_package)"
+    name: "Qt5Core"
+    configs:
+      -
+        filename: "Qt5CoreConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "qt5core-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "Qt5Core"
+      search_paths:
+        - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: false
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/pkgRedirects/Qt5CoreConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/pkgRedirects/qt5core-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5CoreConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/qt5core-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake"
+      mode: "config"
+      version: "5.12.12"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\lib\\cmake"
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/vacuum_backend"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files (x86)/vacuum_backend"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5/Qt5Config.cmake:28 (find_package)"
+      - "CMakeLists.txt:16 (find_package)"
+    name: "Qt5SerialPort"
+    configs:
+      -
+        filename: "Qt5SerialPortConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "qt5serialport-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "Qt5SerialPort"
+      search_paths:
+        - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: false
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/pkgRedirects/Qt5SerialPortConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/pkgRedirects/qt5serialport-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5SerialPortConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/qt5serialport-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5SerialPort/Qt5SerialPortConfig.cmake"
+      mode: "config"
+      version: "5.12.12"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\lib\\cmake"
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/vacuum_backend"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files (x86)/vacuum_backend"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5/Qt5Config.cmake:28 (find_package)"
+      - "CMakeLists.txt:16 (find_package)"
+    name: "Qt5Sql"
+    configs:
+      -
+        filename: "Qt5SqlConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "qt5sql-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "Qt5Sql"
+      search_paths:
+        - "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: false
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/pkgRedirects/Qt5SqlConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/pkgRedirects/qt5sql-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5SqlConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/qt5sql-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Sql/Qt5SqlConfig.cmake"
+      mode: "config"
+      version: "5.12.12"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\lib\\cmake"
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/vacuum_backend"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files (x86)/vacuum_backend"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "CMakeLists.txt:16 (find_package)"
+    name: "Qt5"
+    components:
+      -
+        name: "Core"
+        required: true
+        found: false
+      -
+        name: "SerialPort"
+        required: true
+        found: false
+      -
+        name: "Sql"
+        required: true
+        found: false
+    configs:
+      -
+        filename: "Qt5Config.cmake"
+        kind: "cmake"
+      -
+        filename: "qt5-config.cmake"
+        kind: "cmake"
+    version_request:
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "Qt5"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/pkgRedirects/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/CMakeFiles/pkgRedirects/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DRender/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DRender/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickScene2D/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickScene2D/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickRender/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickRender/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickInput/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickInput/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickExtras/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickExtras/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickAnimation/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuickAnimation/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuick/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DQuick/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DLogic/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DLogic/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DInput/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DInput/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DExtras/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DExtras/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DCore/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DCore/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DAnimation/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt53DAnimation/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5XmlPatterns/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5XmlPatterns/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Xml/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Xml/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WinExtras/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WinExtras/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Widgets/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Widgets/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebView/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebView/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebSockets/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebSockets/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebEngineWidgets/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebEngineWidgets/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebEngineCore/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebEngineCore/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebEngine/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebEngine/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebChannel/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5WebChannel/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5VirtualKeyboard/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5VirtualKeyboard/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5UiTools/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5UiTools/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5UiPlugin/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5UiPlugin/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5TextToSpeech/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5TextToSpeech/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Test/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Test/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Svg/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Svg/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Sql/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Sql/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5SerialPort/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5SerialPort/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5SerialBus/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5SerialBus/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Sensors/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Sensors/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Scxml/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Scxml/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5ScriptTools/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5ScriptTools/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Script/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Script/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5RepParser/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5RepParser/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5RemoteObjects/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5RemoteObjects/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickWidgets/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickWidgets/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickTest/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickTest/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickTemplates2/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickTemplates2/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickControls2/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickControls2/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickCompiler/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5QuickCompiler/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Quick/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Quick/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Qml/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Qml/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Purchasing/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Purchasing/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5PrintSupport/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5PrintSupport/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5PositioningQuick/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5PositioningQuick/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Positioning/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Positioning/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5OpenGLExtensions/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5OpenGLExtensions/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5OpenGL/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5OpenGL/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Nfc/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Nfc/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5NetworkAuth/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5NetworkAuth/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Network/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Network/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5MultimediaWidgets/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5MultimediaWidgets/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Multimedia/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Multimedia/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Location/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Location/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5LinguistTools/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5LinguistTools/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Help/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Help/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Gui/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Gui/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Gamepad/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Gamepad/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Designer/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Designer/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5DataVisualization/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5DataVisualization/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5DBus/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5DBus/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Core/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Core/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Concurrent/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Concurrent/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Charts/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Charts/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Bluetooth/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5Bluetooth/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5AxServer/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5AxServer/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5AxContainer/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5AxContainer/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5AxBase/Qt5Config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5AxBase/qt5-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "C:/Qt/Qt5.12.12/5.12.12/msvc2017_64/lib/cmake/Qt5/Qt5Config.cmake"
+      mode: "config"
+      version: "5.12.12"
+    search_context:
+      CMAKE_PREFIX_PATH:
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\lib\\cmake"
+      ENV{PATH}:
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand"
+        - "c:\\Users\\nsyun\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli"
+        - "C:\\Users\\nsyun\\flutter\\bin\\"
+        - "C:\\WINDOWS\\system32"
+        - "C:\\WINDOWS"
+        - "C:\\WINDOWS\\System32\\Wbem"
+        - "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\"
+        - "C:\\WINDOWS\\System32\\OpenSSH\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\170\\Tools\\Binn\\"
+        - "C:\\Program Files\\dotnet\\"
+        - "C:\\Program Files (x86)\\Windows Kits\\10\\Windows Performance Toolkit\\"
+        - "C:\\Program Files\\Git\\cmd"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Microsoft\\WindowsApps"
+        - "C:\\Users\\nsyun\\.dotnet\\tools"
+        - "C:\\Users\\nsyun\\AppData\\Local\\Programs\\Microsoft VS Code\\bin"
+        - "C:\\Users\\nsyun\\flutter\\bin"
+        - "C:\\Program Files\\CMake\\bin"
+        - "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\bin"
+        - "C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\bin\\amd64"
+      CMAKE_INSTALL_PREFIX: "C:/Program Files (x86)/vacuum_backend"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "C:/Program Files"
+        - "C:/Program Files (x86)"
+        - "C:/Program Files/CMake"
+        - "C:/Program Files (x86)/vacuum_backend"
+...

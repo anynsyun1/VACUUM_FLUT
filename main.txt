@@ -1,0 +1,484 @@
+import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart'; // 차트 패키지
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
+import 'pages/data_management_page.dart';
+import 'native/vacuum_backend.dart';
+
+void main() {
+  // Linux / Windows 에서 SQLite FFI 초기화
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+
+  runApp(const VacuumApp());
+}
+
+class VacuumApp extends StatelessWidget {
+  const VacuumApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'SERA VACUUM',
+      debugShowCheckedModeBanner: false,
+      home: const VacuumScreen(), // 기존 VACUUM 화면
+    );
+  }
+}
+
+/// ─────────────────────────────────────────
+///  VACUUM 메인 화면 (기존 레이아웃 그대로 정리)
+/// ─────────────────────────────────────────
+class VacuumScreen extends StatefulWidget {
+  const VacuumScreen({super.key});
+
+  @override
+  State<VacuumScreen> createState() => _VacuumScreenState();
+}
+
+class _VacuumScreenState extends State<VacuumScreen> {
+  // 시간 SET 그룹
+  // MANUAL, 5M, 3M, 2M, 30S
+  String _selectedTime = 'MANUAL';
+
+  // KPA 그룹
+  // 62, 65, 80
+  int _selectedKpa = 65;
+
+  // 데이터 관리 모드: true이면 VAC/CHK/STOP 비활성화
+  bool _isDataManagementMode = false;
+
+  /// DATA MANAGEMENT 버튼 눌렀을 때:
+  ///  1) VAC/CHK/STOP 비활성화
+  ///  2) DataManagementPage 화면으로 이동
+  Future<void> _openDataManagement() async {
+    setState(() {
+      _isDataManagementMode = true;
+    });
+
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => const DataManagementPage(),
+      ),
+    );
+
+    if (!mounted) return;
+    setState(() {
+      _isDataManagementMode = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.red, width: 1),
+            ),
+            child: Row(
+              children: [
+                // ============================ LEFT SIDE ============================ //
+                Expanded(
+                  flex: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // 제목
+                        Center(
+                          child: Column(
+                            children: const [
+                              Text(
+                                'ONSEMI WAFER PAK',
+                                style: TextStyle(
+                                    fontSize: 24, fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height: 4),
+                              Text('(제품코드, 단위: KPA , SEC)'),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Container(height: 2, color: Colors.blue),
+                        const SizedBox(height: 12),
+
+                        // COM + CONNECT / DISCONNECT / DATA MANAGEMENT 버튼들
+                        Row(
+                          children: [
+                            const Text(
+                              'COM4',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(Icons.arrow_downward),
+                            const SizedBox(width: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                // TODO: 실제 Connect 로직
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Text('CONNECT'),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            ElevatedButton(
+                              onPressed: () {
+                                // TODO: 실제 Disconnect 로직
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                child: Text('DISCONNECT'),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            // DATA MANAGEMENT 버튼
+                            ElevatedButton(
+                              onPressed: _isDataManagementMode
+                                  ? null
+                                  : _openDataManagement,
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                                backgroundColor: _isDataManagementMode
+                                    ? Colors.orange[200]
+                                    : Colors.orange,
+                              ),
+                              child: const Text(
+                                'DATA MANAGEMENT',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+
+                        // 데이터 테이블 (샘플)
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black, width: 1),
+                            ),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: SingleChildScrollView(
+                                child: DataTable(
+                                  headingRowHeight: 40,
+                                  columns: const [
+                                    DataColumn(label: Text("코드DATA")),
+                                    DataColumn(label: Text("구분")),
+                                    DataColumn(label: Text("선택압력")),
+                                    DataColumn(label: Text("시작압력")),
+                                    DataColumn(label: Text("종료압력")),
+                                    DataColumn(label: Text("압력변화")),
+                                    DataColumn(label: Text("결과")),
+                                    DataColumn(label: Text("날짜-시간")),
+                                  ],
+                                  rows: List.generate(
+                                    7,
+                                    (i) => DataRow(
+                                      cells: [
+                                        DataCell(Text("Z12345$i")),
+                                        const DataCell(Text("PAK")),
+                                        const DataCell(Text("62")),
+                                        const DataCell(Text("66.5")),
+                                        const DataCell(Text("65.3")),
+                                        const DataCell(Text("1.0")),
+                                        const DataCell(Text("PASS")),
+                                        const DataCell(
+                                          Text("2024-10-10 12:12"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+
+                        // VAC / CHK / STOP(SAVE) 버튼들
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: _isDataManagementMode
+                                    ? null
+                                    : () {
+                                        // TODO: VAC 동작
+                                      },
+                                child: const Padding(
+                                  padding: EdgeInsets.all(12),
+                                  child: Text(
+                                    "VAC",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: _isDataManagementMode
+                                    ? null
+                                    : () {
+                                        // TODO: CHK 동작
+                                      },
+                                child: const Padding(
+                                  padding: EdgeInsets.all(12),
+                                  child: Text(
+                                    "CHK",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: _isDataManagementMode
+                                    ? null
+                                    : () {
+                                        // TODO: STOP(SAVE) 동작
+                                      },
+                                child: const Padding(
+                                  padding: EdgeInsets.all(12),
+                                  child: Text(
+                                    "STOP(SAVE)",
+                                    style: TextStyle(fontSize: 22),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+
+                        // 시간 SET + KPA SET 그룹
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // 시간 SET 묶음
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildTimeCheckbox("수동 SET", 'MANUAL'),
+                                  _buildTimeCheckbox("5분 SET", '5M'),
+                                  _buildTimeCheckbox("3분 SET", '3M'),
+                                  _buildTimeCheckbox("2분 SET", '2M'),
+                                  _buildTimeCheckbox("30초 SET", '30S'),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            // KPA 묶음
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  _buildKpaCheckbox("62 KPA", 62),
+                                  _buildKpaCheckbox("65 KPA", 65),
+                                  _buildKpaCheckbox("80 KPA", 80),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        const Text("□ 30초 사용시는 테스트에서만 적용됩니다"),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // ============================ RIGHT SIDE ============================ //
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Column(
+                      children: [
+                        // 윗 제목: ONSEMI 1호기
+                        Container(
+                          height: 40,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue, width: 2),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "ONSEMI 1호기",
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+
+                        // 그래프 (위쪽 비율 크게: flex 3)
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.blue, width: 2),
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: const [
+                                Text(
+                                  "Vacuum Pressure Change",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(height: 4),
+                                Expanded(
+                                  child: VacuumPressureChart(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+
+                        // VACUUM 상태 (아래쪽: flex 2)
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blue, width: 2),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "VACUUM\nSTATE: $_selectedKpa KPA\nSTATE: 5분(300)",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(fontSize: 26),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ====== helper widgets for checkbox groups ======
+
+  Widget _buildTimeCheckbox(String label, String value) {
+    return CheckboxListTile(
+      dense: true,
+      contentPadding: EdgeInsets.zero,
+      title: Text(
+        label,
+        style: const TextStyle(fontSize: 16),
+      ),
+      value: _selectedTime == value,
+      onChanged: (_) {
+        setState(() {
+          _selectedTime = value;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,
+    );
+  }
+
+  Widget _buildKpaCheckbox(String label, int value) {
+    return CheckboxListTile(
+      dense: true,
+      contentPadding: EdgeInsets.zero,
+      title: Text(
+        label,
+        style: const TextStyle(fontSize: 18),
+      ),
+      value: _selectedKpa == value,
+      onChanged: (_) {
+        setState(() {
+          _selectedKpa = value;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,
+    );
+  }
+}
+
+/// ─────────────────────────────────────────
+///  차트 위젯 (0~300, -5~+5 고정)
+/// ─────────────────────────────────────────
+class VacuumPressureChart extends StatelessWidget {
+  const VacuumPressureChart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return LineChart(
+      LineChartData(
+        // 축 범위 고정
+        minX: 0,
+        maxX: 300,
+        minY: -5,
+        maxY: 5,
+        gridData: FlGridData(show: true),
+        borderData: FlBorderData(
+          show: true,
+          border: const Border(
+            left: BorderSide(),
+            bottom: BorderSide(),
+            right: BorderSide(),
+            top: BorderSide(),
+          ),
+        ),
+        titlesData: FlTitlesData(
+          topTitles:
+              const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          rightTitles:
+              const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          leftTitles: const AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 32,
+            ),
+          ),
+          bottomTitles: const AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 28,
+            ),
+          ),
+        ),
+        lineBarsData: [
+          LineChartBarData(
+            isCurved: false,
+            barWidth: 2,
+            spots: const [
+              FlSpot(0, 0),
+              FlSpot(60, 0),
+              FlSpot(120, -1),
+              FlSpot(180, -2),
+              FlSpot(240, -3),
+              FlSpot(300, -3),
+            ],
+            dotData: FlDotData(show: true),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -1,0 +1,37 @@
+if (MSVC)
+    add_compile_options(/utf-8)
+endif()
+
+cmake_minimum_required(VERSION 3.16)
+
+project(vacuum_backend LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Qt Path 지정
+#set(CMAKE_PREFIX_PATH "C:\\Qt\\Qt5.12.12\\5.12.12\\msvc2017_64\\lib\\cmake")
+set(CMAKE_PREFIX_PATH "/home/nsyun/Qt/5.15.2/gcc_64/lib/cmake")
+
+# Qt 모듈 찾기
+find_package(Qt5 REQUIRED COMPONENTS Core SerialPort Sql)
+
+# 라이브러리 구성
+add_library(vacuum_backend SHARED
+    vacuum_backend.cpp
+    vacuum_backend.h
+    vacuum_backend_api.cpp
+    vacuum_device.h
+    vacuum_device.cpp
+)
+
+target_link_libraries(vacuum_backend
+    PRIVATE
+        Qt5::Core
+        Qt5::SerialPort
+        Qt5::Sql
+)
+
+target_include_directories(vacuum_backend
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)

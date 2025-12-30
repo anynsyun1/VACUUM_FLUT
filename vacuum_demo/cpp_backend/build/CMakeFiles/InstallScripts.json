@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

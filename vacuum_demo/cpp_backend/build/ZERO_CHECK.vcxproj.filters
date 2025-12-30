@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\VACUUM\VACUUM_FLUT\vacuum_demo\cpp_backend\build\CMakeFiles\8b14f0340b525d46758c6bd9905988b9\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{17B48998-9BD2-39E2-ABC6-198D2B54DEB1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

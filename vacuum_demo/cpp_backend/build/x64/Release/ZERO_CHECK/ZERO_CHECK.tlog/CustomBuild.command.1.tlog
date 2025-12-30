@@ -1,0 +1,10 @@
+^C:\VACUUM\VACUUM_FLUT\VACUUM_DEMO\CPP_BACKEND\BUILD\CMAKEFILES\8B14F0340B525D46758C6BD9905988B9\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend -BC:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/VACUUM/VACUUM_FLUT/vacuum_demo/cpp_backend/build/vacuum_backend.slnx
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
