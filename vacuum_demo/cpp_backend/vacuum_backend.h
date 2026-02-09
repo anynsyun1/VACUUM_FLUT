@@ -10,7 +10,7 @@
 #include "vacuum_device.h"
 
 #define MAXAVG 5
-#define STARTOFFSET 7
+// #define STARTOFFSET 7
 #define DIV 2
 
 #define MAXTIME 65535
@@ -18,7 +18,8 @@
 static int MAXPRESS=67;
 static int MINPRESS=62;
 static float MINDIFF=1.0;
-
+static float hrate = 0.5;
+static int STARTOFFSET = 7;
 
 
 

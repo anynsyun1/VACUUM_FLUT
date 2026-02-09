@@ -158,6 +158,24 @@ bool VacuumBackend::measureOnceInternal(int channel, float& outPressure)
 
 bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressure, float& pSt, float& pSp, float& diffPressure, bool& pass, bool& stop)
 {
+    float val=0.0;
+    float hval = 0.0;
+    float hrate = 0.0;
+
+    if(channel == 1) {
+        //direction = "PAK";
+        hrate = 0.5;
+        STARTOFFSET = 18;
+    } else if (channel == 2 ) {
+        //direction = "CHUCK";
+        hrate = 0.6;
+        STARTOFFSET = 7;
+
+    } else {
+        hrate = 1.0;
+        STARTOFFSET = 7;    
+    } 
+
     if (!isConnected()) {
         qWarning() << "[Backend] measureOnceInternal: not connected";
         return false;
@@ -166,6 +184,7 @@ bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressur
     bool result= device_.measureOnce(channel, outPressure);
 
 
+    // before STARTOFFSET 
     if(counter <= STARTOFFSET*DIV )
     {
         pass = true; 
@@ -187,7 +206,7 @@ bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressur
         qDebug() << "start pressure :" << pSt;
         qDebug() << "stop pressure :" << pSp;
         qDebug() << "diff pressure :" << diffPressure;
-
+        // over STARTOFFSET but not yet averaging done
     } else if ( counter > STARTOFFSET*DIV && counter <=  (STARTOFFSET*DIV+MAXAVG))
     {
         pass = true; 
@@ -209,12 +228,24 @@ bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressur
         qDebug() << "stop pressure :" << pSp;
         qDebug() << "diff pressure :" << diffPressure;
 
+    // measuring time 
     } else if (counter > (STARTOFFSET*DIV+MAXAVG)  && counter <= (configuredDuration_+STARTOFFSET)*DIV+MAXAVG)
     {
         pSp  = averaging(sp_avgpress, outPressure,  spcntPtr);
         pSp = pSp - offsetpress;
-        diffPressure = pSp - startpress;
         pSt = startpress;
+
+
+        // stoppress = press - offsetpress;
+        val = pSp - pSt;
+        if(val<0) {
+            hval = -(val*hrate);
+        } else {
+            hval = (val*hrate);
+        }
+        pSp = pSp + hval;
+
+        diffPressure = pSp - pSt;
         //////////////////////////////////////////////////////////////////////
         // pass fail
         if(( pSp >= MINPRESS) && ( diffPressure <= MINDIFF && diffPressure >= -MINDIFF)) {
