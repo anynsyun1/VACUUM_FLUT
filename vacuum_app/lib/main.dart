@@ -1,4 +1,3 @@
-
 // lib/main.dart
 import 'dart:async';
 
@@ -12,7 +11,6 @@ import 'models/vacuum_record.dart';
 import 'services/vacuum_db.dart';
 
 enum MeasureMode { none, vac, chk }
-
 
 void main() {
   // Linux / Windows 에서 SQLite FFI 초기화
@@ -45,8 +43,8 @@ class VacuumScreen extends StatefulWidget {
   State<VacuumScreen> createState() => _VacuumScreenState();
 }
 
-class _VacuumScreenState extends State<VacuumScreen> 
-  with SingleTickerProviderStateMixin {
+class _VacuumScreenState extends State<VacuumScreen>
+    with SingleTickerProviderStateMixin {
   // 🔹 C++ 백엔드
   late final VacuumNative _backend;
 
@@ -75,7 +73,6 @@ class _VacuumScreenState extends State<VacuumScreen>
   final TextEditingController _lotController = TextEditingController();
 
   // 실시간 상태값 (VACUUM 패널)
-  double _currentPressure = 0.0; // 마지막 측정 압력(현재 압력)
   double _currentStartP = 0.0; // 시작 압력
   double _currentStopP = 0.0; // 종료 압력
   double _currentDiff = 0.0; // ΔP
@@ -83,11 +80,24 @@ class _VacuumScreenState extends State<VacuumScreen>
   bool _currentStopFlag = false;
   int _currentDurationSec = 0; // 패널/테이블용 지속시간(초 단위 표시용)
 
-  // 차트 오프셋 (STARTOFFSET과 맞춰서 사용)
-  static const int _chartOffsetTicks = 20; // timer tick 20개(=10초) 이후부터 그래프
+  // 차트 오프셋 (C++ STARTOFFSET과 맞춰서 사용)
+  // counter 는 0.5초마다 1 증가하므로, (초 * _div) = tick 수
+  int _chartOffsetTicks = 0;
+
+  // C++ cpp_backend 와 동일: averaging 구간 tick 수
+  static const int _maxAvgTicks = 5;
 
   int _timeCounter = 0; // C++ measureAndDecide()에 넘기는 카운터
   final int _div = 2; // 0.5초 간격(500ms)일 때 counter 2개 = 1초
+
+  int _startOffsetSecForChannel(int channel) {
+    // C++ cpp_backend 기준과 동기화 필요
+    // channel 1: VAC (PAK)
+    // channel 2: CHK (CHUCK)
+    if (channel == 1) return 18;
+    if (channel == 2) return 7;
+    return 7;
+  }
 
   // 어떤 버튼으로 시작했는지 (VAC / CHK 에 따라 PAK / CHUCK)
   String _currentPkck = 'PAK';
@@ -95,6 +105,12 @@ class _VacuumScreenState extends State<VacuumScreen>
   // 차트 데이터 (ΔP vs time)
   final List<FlSpot> _spots = [];
   double _elapsedSec = 0; // offset 이후 경과시간 (차트/패널/DB용)
+
+  // 자동 모드에서 이번 런의 목표 시간(초)
+  double _runMaxXSec = 300;
+
+  // 측정 시작 시점의 시간 모드(중간에 UI에서 바뀌어도 런에 영향 없게 고정)
+  String _runTimeMode = 'MANUAL';
 
   Timer? _vacTimer;
   bool _isMeasuring = false;
@@ -113,44 +129,21 @@ class _VacuumScreenState extends State<VacuumScreen>
 
   late final AnimationController _blinkCtrl;
   MeasureMode _measureMode = MeasureMode.none;
-  int _measureChannel = 0;
-
 
   bool _blinkOn = false;
   Timer? _blinkTimer;
-
-    //  VAC/CHK 
-  String? _activeJob; // 'VAC' | 'CHK' | null
-
-  ButtonStyle _blueEnabledButtonStyle() {
-    return ButtonStyle(
-      backgroundColor: MaterialStateProperty.resolveWith<Color?>((states) {
-        if (states.contains(MaterialState.disabled)) return null; // ?? disabled ??
-        return Colors.blue; // enabled? ??
-      }),
-      foregroundColor: MaterialStateProperty.resolveWith<Color?>((states) {
-        if (states.contains(MaterialState.disabled)) return null; // ?? disabled ??
-        return Colors.white; // enabled? ?? ??
-      }),
-    );
-  }
 
   ButtonStyle _mainButtonStyle(bool enabled) {
     return ElevatedButton.styleFrom(
       backgroundColor: enabled ? Colors.blue : null,
       foregroundColor: enabled ? Colors.white : null,
-      disabledBackgroundColor: Colors.grey[300],
-      disabledForegroundColor: Colors.grey[600],
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
+      disabledBackgroundColor: Colors.grey[400],
+      disabledForegroundColor: Colors.grey[800],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     );
   }
 
-  Widget _blinkWrapper({
-    required bool active,
-    required Widget child,
-  }) {
+  Widget _blinkWrapper({required bool active, required Widget child}) {
     const double bw = 3; // 항상 같은 두께 유지
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
@@ -168,10 +161,14 @@ class _VacuumScreenState extends State<VacuumScreen>
   Widget _buildBlueButton({
     required String label,
     required VoidCallback? onPressed,
-    EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    EdgeInsets padding = const EdgeInsets.symmetric(
+      horizontal: 20,
+      vertical: 10,
+    ),
     double fontSize = 16,
     bool isRunning = false,
     double? fixedHeight, // ✅ 높이 고정 옵션
+    Color? disabledForegroundColor,
   }) {
     final enabled = onPressed != null;
 
@@ -199,14 +196,18 @@ class _VacuumScreenState extends State<VacuumScreen>
                     ? null
                     : MaterialStateProperty.all(Size.fromHeight(fixedHeight)),
                 shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
                 backgroundColor: MaterialStateProperty.resolveWith((states) {
                   if (states.contains(MaterialState.disabled)) return null;
                   return Colors.blue;
                 }),
                 foregroundColor: MaterialStateProperty.resolveWith((states) {
-                  if (states.contains(MaterialState.disabled)) return null;
+                  if (states.contains(MaterialState.disabled)) {
+                    return disabledForegroundColor;
+                  }
                   return Colors.white;
                 }),
               ),
@@ -219,15 +220,21 @@ class _VacuumScreenState extends State<VacuumScreen>
                     child: Icon(
                       Icons.autorenew,
                       size: iconSize,
-                      color: enabled ? Colors.white : null,
+                      color: enabled ? Colors.white : disabledForegroundColor,
                     ),
                   ),
                   const SizedBox(width: 8), // ✅ 간격도 항상 유지
-                  Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: fontSize,
-                      fontWeight: FontWeight.bold,
+                  Flexible(
+                    child: Text(
+                      label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: TextStyle(
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.bold,
+                        color: enabled ? null : disabledForegroundColor,
+                      ),
                     ),
                   ),
                 ],
@@ -238,7 +245,6 @@ class _VacuumScreenState extends State<VacuumScreen>
       },
     );
   }
-
 
   @override
   void initState() {
@@ -258,7 +264,7 @@ class _VacuumScreenState extends State<VacuumScreen>
     _vacTimer?.cancel();
     _lotController.dispose();
     _lotFocusNode.dispose();
-    _blinkCtrl.dispose();  
+    _blinkCtrl.dispose();
     super.dispose();
   }
 
@@ -271,8 +277,9 @@ class _VacuumScreenState extends State<VacuumScreen>
         _ports = ports;
         if (_ports.isNotEmpty) {
           _selectedPort ??= _ports.first;
-          _portStatusText =
-              _connected ? 'CONNECTED: $_selectedPort' : 'PORT: $_selectedPort';
+          _portStatusText = _connected
+              ? 'CONNECTED: $_selectedPort'
+              : 'PORT: $_selectedPort';
         } else {
           _selectedPort = null;
           _portStatusText = 'NO PORT FOUND';
@@ -313,8 +320,9 @@ class _VacuumScreenState extends State<VacuumScreen>
     setState(() {
       _connected = ok;
       _connecting = false;
-      _portStatusText =
-          ok ? 'CONNECTED: $_selectedPort' : 'CONNECT FAILED (${_selectedPort!})';
+      _portStatusText = ok
+          ? 'CONNECTED: $_selectedPort'
+          : 'CONNECT FAILED (${_selectedPort!})';
     });
 
     if (ok) {
@@ -328,7 +336,7 @@ class _VacuumScreenState extends State<VacuumScreen>
     if (!_connected) return;
     _vacTimer?.cancel();
     _vacTimer = null;
-    _blinkCtrl.stop(); 
+    _blinkCtrl.stop();
     _isMeasuring = false;
     _measureMode = MeasureMode.none;
     _backend.disconnect();
@@ -336,7 +344,6 @@ class _VacuumScreenState extends State<VacuumScreen>
       _connected = false;
       _portStatusText = 'DISCONNECTED';
       _isMeasuring = false;
-      _activeJob = null;
     });
   }
 
@@ -359,7 +366,8 @@ class _VacuumScreenState extends State<VacuumScreen>
   }
 
   String _timeLabelForStatus() {
-    switch (_selectedTime) {
+    final mode = _isMeasuring ? _runTimeMode : _selectedTime;
+    switch (mode) {
       case '5M':
         return '5분(300)';
       case '3M':
@@ -403,13 +411,11 @@ class _VacuumScreenState extends State<VacuumScreen>
     _currentStopFlag = false;
     _currentDurationSec = 0;
 
-    _currentPressure = 0;
     _currentPass = true;
     setState(() {
       _isMeasuring = true;
     });
-    _blinkCtrl.repeat(reverse: true); 
-
+    _blinkCtrl.repeat(reverse: true);
   }
 
   // ───────────────────────── VAC / CHK / STOP ─────────────────────────
@@ -419,9 +425,9 @@ class _VacuumScreenState extends State<VacuumScreen>
     if (!_backend.isConnected()) return;
 
     if (!_hasLotCode) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('코드DATA를 먼저 입력하세요.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('코드DATA를 먼저 입력하세요.')));
       return;
     }
 
@@ -429,14 +435,24 @@ class _VacuumScreenState extends State<VacuumScreen>
     _backend.configureModes(_timeModeValue(), _selectedKpa);
     _backend.start();
 
+    // 차트/표시 오프셋을 채널별 STARTOFFSET(초)에 맞춰 동기화
+    // C++ 로직: counter <= STARTOFFSET*DIV 는 offset 구간,
+    // 그 다음 MAXAVG tick 동안 평균을 내므로 차트는 STARTOFFSET*DIV + MAXAVG 이후부터가 자연스러움
+    final startOffsetSec = _startOffsetSecForChannel(channel);
+    _chartOffsetTicks = (startOffsetSec * _div) + _maxAvgTicks;
+    _runMaxXSec = _chartMaxX();
+    _runTimeMode = _selectedTime;
+    debugPrint(
+      'measure start: channel=$channel startOffsetSec=$startOffsetSec '
+      'div=$_div maxAvgTicks=$_maxAvgTicks chartOffsetTicks=$_chartOffsetTicks',
+    );
+
     _resetMeasureStateForNewRun(pkck);
 
     setState(() {
       _isMeasuring = true;
-      _activeJob = (channel == 1) ? 'VAC' : 'CHK'; 
     });
 
-    _measureChannel = channel;
     _measureMode = (channel == 1) ? MeasureMode.vac : MeasureMode.chk;
 
     _blinkTimer?.cancel();
@@ -457,31 +473,50 @@ class _VacuumScreenState extends State<VacuumScreen>
         return;
       }
 
+      // offset 이후의 시간 (차트/TIME/DB용)
+      double nextElapsedSec;
+      if (_timeCounter >= _chartOffsetTicks) {
+        nextElapsedSec = (_timeCounter - _chartOffsetTicks) / _div;
+      } else {
+        nextElapsedSec = 0;
+      }
+
+      // 자동 모드에서는 선택 시간(maxX)을 넘기지 않도록 클램프 + 즉시 정지
+      final bool shouldStopByTime =
+          _runTimeMode != 'MANUAL' && nextElapsedSec >= _runMaxXSec;
+      if (shouldStopByTime) {
+        nextElapsedSec = _runMaxXSec;
+      }
+
       setState(() {
         // 🔹 측정 결과 적용
-        _currentPressure = res.pressure;
         _currentStartP = res.startPressure;
         _currentStopP = res.stopPressure;
         _currentDiff = res.diffPressure;
         _currentPass = res.pass;
         _currentStopFlag = res.stop;
 
-        // 🔹 offset 이후의 시간 (차트/TIME/DB용)
-        if (_timeCounter > _chartOffsetTicks) {
-          _elapsedSec = (_timeCounter - _chartOffsetTicks) / _div;
-        } else {
-          _elapsedSec = 0;
-        }
+        _elapsedSec = nextElapsedSec;
 
         // 패널/테이블에서 쓸 정수 초
         _currentDurationSec = _elapsedSec.floor();
 
         // 🔹 차트는 offset 이후부터만 찍기
-        if (_timeCounter > _chartOffsetTicks) {
-          _spots.add(FlSpot(_elapsedSec, res.diffPressure));
+        if (_timeCounter >= _chartOffsetTicks) {
+          // 자동 모드에서는 maxX 범위를 넘는 점을 추가하지 않음
+          if (_runTimeMode == 'MANUAL' || _elapsedSec <= _runMaxXSec) {
+            if (_runTimeMode != 'MANUAL' && shouldStopByTime) {
+              // 마지막 점이 이미 maxX라면 중복 추가 방지
+              if (_spots.isEmpty || _spots.last.x != _runMaxXSec) {
+                _spots.add(FlSpot(_runMaxXSec, res.diffPressure));
+              }
+            } else {
+              _spots.add(FlSpot(_elapsedSec, res.diffPressure));
+            }
+          }
 
           // MANUAL 모드일 경우 300초 슬라이딩 윈도우
-          if (_selectedTime == 'MANUAL' && _elapsedSec > 300) {
+          if (_runTimeMode == 'MANUAL' && _elapsedSec > 300) {
             final shift = _elapsedSec - 300;
 
             for (int i = 0; i < _spots.length; i++) {
@@ -498,11 +533,13 @@ class _VacuumScreenState extends State<VacuumScreen>
       // ✅ 정지 조건
       final shouldStopByFlag = res.stop;
       final shouldStopByFail =
-          _selectedTime != 'MANUAL' && !res.pass; // 자동 모드에서 FAIL 시 정지
+          _runTimeMode != 'MANUAL' && !res.pass; // 자동 모드에서 FAIL 시 정지
 
-      if (shouldStopByFlag || shouldStopByFail) {
+      if (shouldStopByFlag || shouldStopByFail || shouldStopByTime) {
         debugPrint(
-            'Stop condition: stopFlag=$shouldStopByFlag, failStop=$shouldStopByFail');
+          'Stop condition: stopFlag=$shouldStopByFlag, failStop=$shouldStopByFail, '
+          'timeStop=$shouldStopByTime, elapsed=${nextElapsedSec.toStringAsFixed(1)}',
+        );
         _finishMeasurementAndSave();
       }
     });
@@ -524,10 +561,8 @@ class _VacuumScreenState extends State<VacuumScreen>
 
     setState(() {
       _isMeasuring = false;
-      _activeJob = null; 
       _blinkOn = false;
       _measureMode = MeasureMode.none;
-      _measureChannel = 0;
     });
 
     final lotname = _lotController.text.trim();
@@ -590,11 +625,9 @@ class _VacuumScreenState extends State<VacuumScreen>
       _isDataManagementMode = true;
     });
 
-    await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => const DataManagementPage(),
-      ),
-    );
+    await Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const DataManagementPage()));
 
     if (!mounted) return;
     setState(() {
@@ -606,7 +639,7 @@ class _VacuumScreenState extends State<VacuumScreen>
 
   @override
   Widget build(BuildContext context) {
-    final maxX = _chartMaxX();
+    final maxX = _isMeasuring ? _runMaxXSec : _chartMaxX();
 
     return Scaffold(
       body: SafeArea(
@@ -633,7 +666,7 @@ class _VacuumScreenState extends State<VacuumScreen>
                               Text(
                                 'ONSEMI WAFER PAK',
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 28,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -646,41 +679,53 @@ class _VacuumScreenState extends State<VacuumScreen>
                         Container(height: 2, color: Colors.blue),
                         const SizedBox(height: 12),
 
-                        // COM + CONNECT / DISCONNECT / DATA MANAGEMENT 버튼들
-                        Row(
-                          children: [
-                            // 포트 선택 + 새로고침
-                            DropdownButton<String>(
-                              value: _selectedPort,
-                              hint: const Text('NO PORT'),
-                              items: _ports
-                                  .map(
-                                    (p) => DropdownMenuItem(
-                                      value: p,
-                                      child: Text(p),
-                                    ),
-                                  )
-                                  .toList(),
-                              onChanged: (v) {
-                                setState(() {
-                                  _selectedPort = v;
-                                  if (v != null) {
-                                    _portStatusText = _connected
-                                        ? 'CONNECTED: $v'
-                                        : 'PORT: $v';
-                                  }
-                                });
-                              },
+                        // Port 선택(/dev/ttyUSB*) ~ 30초 SET 영역(차트/상태창 제외)
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black, width: 1),
                             ),
-                            IconButton(
-                              onPressed: _refreshPorts,
-                              icon: const Icon(Icons.refresh),
-                              tooltip: '포트 새로고침',
-                            ),
-                            const SizedBox(width: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // COM + CONNECT / DISCONNECT / DATA MANAGEMENT 버튼들
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: [
+                                      // 포트 선택 + 새로고침
+                                      DropdownButton<String>(
+                                        value: _selectedPort,
+                                        hint: const Text('NO PORT'),
+                                        items: _ports
+                                            .map(
+                                              (p) => DropdownMenuItem(
+                                                value: p,
+                                                child: Text(p),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (v) {
+                                          setState(() {
+                                            _selectedPort = v;
+                                            if (v != null) {
+                                              _portStatusText = _connected
+                                                  ? 'CONNECTED: $v'
+                                                  : 'PORT: $v';
+                                            }
+                                          });
+                                        },
+                                      ),
+                                      IconButton(
+                                        onPressed: _refreshPorts,
+                                        icon: const Icon(Icons.refresh),
+                                        tooltip: '포트 새로고침',
+                                      ),
+                                      const SizedBox(width: 20),
 
-                            // CONNECT
-                            /*
+                                      // CONNECT
+                                      /*
                             ElevatedButton(
                               style: _blueEnabledButtonStyle(),
                               onPressed: (_selectedPort != null &&
@@ -699,7 +744,7 @@ class _VacuumScreenState extends State<VacuumScreen>
                               ),
                             ),
                             */
-                            /*
+                                      /*
                             ElevatedButton(
                               style: _mainButtonStyle(!_connected && !_connecting),
                               onPressed: (!_connected && !_connecting) ? _connect : null,
@@ -707,13 +752,23 @@ class _VacuumScreenState extends State<VacuumScreen>
                             ),
                             const SizedBox(width: 12),
                             */
-                            _buildBlueButton(
-                              label: _connecting ? 'CONNECTING...' : 'CONNECT',
-                              onPressed: (_selectedPort != null && !_connected && !_connecting) ? _connect : null,
-                              fontSize: 14,
-                            ),
+                                      SizedBox(
+                                        width: 170,
+                                        child: _buildBlueButton(
+                                          label: _connecting
+                                              ? 'CONNECTING...'
+                                              : 'CONNECT',
+                                          onPressed:
+                                              (_selectedPort != null &&
+                                                  !_connected &&
+                                                  !_connecting)
+                                              ? _connect
+                                              : null,
+                                          fontSize: 16,
+                                        ),
+                                      ),
 
-                            /*
+                                      /*
                             _buildBlueButton(
                               label: 'DISCONNECT',
                               onPressed: _connected ? _disconnect : null,
@@ -721,266 +776,311 @@ class _VacuumScreenState extends State<VacuumScreen>
                             ),
                             */
 
-                            // DISCONNECT
-                            /*
-                            ElevatedButton(
-                              style: _blueEnabledButtonStyle(),
-                              onPressed: _connected ? _disconnect : null,
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 10,
+                                      // DISCONNECT
+                                      /*
+                                    ElevatedButton(
+                                      style: _blueEnabledButtonStyle(),
+                                      onPressed: _connected ? _disconnect : null,
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 20,
+                                          vertical: 10,
+                                        ),
+                                        child: Text('DISCONNECT'),
+                                      ),
+                                    ),
+                                    */
+                                      ElevatedButton(
+                                        style: _mainButtonStyle(_connected),
+                                        onPressed: _connected
+                                            ? _disconnect
+                                            : null,
+                                        child: const Text(
+                                          'DISCONNECT',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 12),
+
+                                      // DATA MANAGEMENT 버튼
+                                      ElevatedButton(
+                                        onPressed: _isDataManagementMode
+                                            ? null
+                                            : _openDataManagement,
+                                        style: ElevatedButton.styleFrom(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                            vertical: 10,
+                                          ),
+                                          backgroundColor: _isDataManagementMode
+                                              ? Colors.orange[200]
+                                              : Colors.orange,
+                                        ),
+                                        child: const Text(
+                                          'DATA MANAGEMENT',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                child: Text('DISCONNECT'),
-                              ),
-                            ),
-                            */
-
-                            ElevatedButton(
-                              style: _mainButtonStyle(_connected),
-                              onPressed: _connected ? _disconnect : null,
-                              child: const Text('DISCONNECT'),
-                            ),
-                            const SizedBox(width: 12),
-
-                            // DATA MANAGEMENT 버튼
-                            ElevatedButton(
-                              onPressed: _isDataManagementMode
-                                  ? null
-                                  : _openDataManagement,
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 20,
-                                  vertical: 10,
+                                const SizedBox(height: 4),
+                                Text(
+                                  _portStatusText,
+                                  style: const TextStyle(fontSize: 12),
                                 ),
-                                backgroundColor: _isDataManagementMode
-                                    ? Colors.orange[200]
-                                    : Colors.orange,
-                              ),
-                              child: const Text(
-                                'DATA MANAGEMENT',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          _portStatusText,
-                          style: const TextStyle(fontSize: 12),
-                        ),
-                        const SizedBox(height: 12),
+                                const SizedBox(height: 12),
 
-                        // 데이터 테이블
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: Colors.black, width: 1),
-                            ),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: SingleChildScrollView(
-                                child: DataTable(
-                                  headingRowHeight: 40,
-                                  columns: const [
-                                    DataColumn(label: Text("코드DATA")),
-                                    DataColumn(label: Text("구분")),
-                                    DataColumn(label: Text("선택압력")),
-                                    DataColumn(label: Text("시작압력")),
-                                    DataColumn(label: Text("종료압력")),
-                                    DataColumn(label: Text("압력변화")),
-                                    DataColumn(label: Text("지속시간")),
-                                    DataColumn(label: Text("결과")),
-                                    DataColumn(label: Text("날짜-시간")),
-                                  ],
-                                  rows: [
-                                    // ✅ 기존 레코드: 각 레코드의 duration 사용
-                                    ..._recentRecords.map((r) {
-                                      return DataRow(
-                                        cells: [
-                                          DataCell(Text(r.lotname)),
-                                          DataCell(Text(r.pkck)),
-                                          DataCell(Text('${r.vacpSel}')),
-                                          DataCell(Text(
-                                              r.vacpSt.toStringAsFixed(1))),
-                                          DataCell(Text(
-                                              r.vacpSp.toStringAsFixed(1))),
-                                          DataCell(Text(
-                                              r.vacpDiff.toStringAsFixed(2))),
-                                          DataCell(Text('${r.duration}')),
-                                          DataCell(Text(r.result)),
-                                          DataCell(Text(r.stmpdate
-                                              .toIso8601String()
-                                              .substring(0, 19))),
-                                        ],
-                                      );
-                                    }),
+                                // 데이터 테이블
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.black,
+                                        width: 1,
+                                      ),
+                                    ),
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: SingleChildScrollView(
+                                        child: DataTable(
+                                          headingRowHeight: 40,
+                                          columns: const [
+                                            DataColumn(label: Text("코드DATA")),
+                                            DataColumn(label: Text("구분")),
+                                            DataColumn(label: Text("선택압력")),
+                                            DataColumn(label: Text("시작압력")),
+                                            DataColumn(label: Text("종료압력")),
+                                            DataColumn(label: Text("압력변화")),
+                                            DataColumn(label: Text("지속시간")),
+                                            DataColumn(label: Text("결과")),
+                                            DataColumn(label: Text("날짜-시간")),
+                                          ],
+                                          rows: [
+                                            // ✅ 기존 레코드: 각 레코드의 duration 사용
+                                            ..._recentRecords.map((r) {
+                                              return DataRow(
+                                                cells: [
+                                                  DataCell(Text(r.lotname)),
+                                                  DataCell(Text(r.pkck)),
+                                                  DataCell(
+                                                    Text('${r.vacpSel}'),
+                                                  ),
+                                                  DataCell(
+                                                    Text(
+                                                      r.vacpSt.toStringAsFixed(
+                                                        1,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  DataCell(
+                                                    Text(
+                                                      r.vacpSp.toStringAsFixed(
+                                                        1,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  DataCell(
+                                                    Text(
+                                                      r.vacpDiff
+                                                          .toStringAsFixed(2),
+                                                    ),
+                                                  ),
+                                                  DataCell(
+                                                    Text('${r.duration}'),
+                                                  ),
+                                                  DataCell(Text(r.result)),
+                                                  DataCell(
+                                                    Text(
+                                                      r.stmpdate
+                                                          .toIso8601String()
+                                                          .substring(0, 19),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            }),
 
-                                    // ✅ 새 레코드 입력용 마지막 한 줄
-                                    DataRow(
-                                      cells: [
-                                        DataCell(
-                                          TextField(
-                                            controller: _lotController,
-                                            focusNode: _lotFocusNode, //
-                                            decoration:
-                                                const InputDecoration(
-                                              isDense: true,
-                                              border: InputBorder.none,
+                                            // ✅ 새 레코드 입력용 마지막 한 줄
+                                            DataRow(
+                                              cells: [
+                                                DataCell(
+                                                  TextField(
+                                                    controller: _lotController,
+                                                    focusNode: _lotFocusNode, //
+                                                    decoration:
+                                                        const InputDecoration(
+                                                          isDense: true,
+                                                          border:
+                                                              InputBorder.none,
+                                                        ),
+                                                    onChanged: (_) {
+                                                      setState(
+                                                        () {},
+                                                      ); // 버튼 활성화 갱신
+                                                    },
+                                                  ),
+                                                ),
+                                                DataCell(Text(_currentPkck)),
+                                                DataCell(Text('$_selectedKpa')),
+                                                DataCell(
+                                                  Text(
+                                                    _currentStartP
+                                                        .toStringAsFixed(1),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    _currentStopP
+                                                        .toStringAsFixed(1),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    _currentDiff
+                                                        .toStringAsFixed(2),
+                                                  ),
+                                                ),
+                                                // 여기만 현재 측정의 시간(_currentDurationSec) 사용
+                                                DataCell(
+                                                  Text('$_currentDurationSec'),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    _currentPass
+                                                        ? 'PASS'
+                                                        : 'FAIL',
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    DateTime.now()
+                                                        .toIso8601String()
+                                                        .substring(0, 19),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            onChanged: (_) {
-                                              setState(() {}); // 버튼 활성화 갱신
-                                            },
-                                          ),
+                                          ],
                                         ),
-                                        DataCell(
-                                          Text(_currentPkck),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 12),
+
+                                // VAC / CHK / STOP(SAVE) 버튼들
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: _blinkWrapper(
+                                        active:
+                                            _isMeasuring &&
+                                            _currentPkck == 'PAK',
+                                        child: _buildBlueButton(
+                                          label: 'VAC',
+                                          onPressed: _vacButtonsEnabled
+                                              ? _onVacPressed
+                                              : null,
+                                          padding: const EdgeInsets.all(12),
+                                          fontSize: 22,
+                                          disabledForegroundColor:
+                                              Colors.black87,
+                                          isRunning:
+                                              _isMeasuring &&
+                                              _measureMode ==
+                                                  MeasureMode.vac, // ? ??? ??
                                         ),
-                                        DataCell(Text('$_selectedKpa')),
-                                        DataCell(Text(
-                                            _currentStartP.toStringAsFixed(1))),
-                                        DataCell(Text(
-                                            _currentStopP.toStringAsFixed(1))),
-                                        DataCell(Text(
-                                            _currentDiff.toStringAsFixed(2))),
-                                        // 여기만 현재 측정의 시간(_currentDurationSec) 사용
-                                        DataCell(
-                                            Text('$_currentDurationSec')),
-                                        DataCell(Text(
-                                            _currentPass ? 'PASS' : 'FAIL')),
-                                        DataCell(
-                                          Text(
-                                            DateTime.now()
-                                                .toIso8601String()
-                                                .substring(0, 19),
-                                          ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: _blinkWrapper(
+                                        active:
+                                            _isMeasuring &&
+                                            _currentPkck == 'CHUCK',
+                                        child: _buildBlueButton(
+                                          label: 'CHK',
+                                          onPressed: _vacButtonsEnabled
+                                              ? _onChkPressed
+                                              : null,
+                                          padding: const EdgeInsets.all(12),
+                                          fontSize: 22,
+                                          disabledForegroundColor:
+                                              Colors.black87,
+                                          isRunning:
+                                              _isMeasuring &&
+                                              _measureMode ==
+                                                  MeasureMode.chk, // ? ??? ??
                                         ),
-                                      ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Expanded(
+                                      child: _buildBlueButton(
+                                        label: 'STOP(SAVE)',
+                                        onPressed: _stopEnabled
+                                            ? _onStopPressed
+                                            : null,
+                                        padding: const EdgeInsets.all(12),
+                                        fontSize: 22,
+                                        disabledForegroundColor: Colors.black87,
+                                        isRunning:
+                                            _isMeasuring, // STOP? ????? ??? ???? ??? true
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
+                                const SizedBox(height: 12),
+
+                                // 시간 SET + KPA SET 그룹
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // 시간 SET 묶음
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          _buildTimeCheckbox(
+                                            "수동 SET",
+                                            'MANUAL',
+                                          ),
+                                          _buildTimeCheckbox("5분 SET", '5M'),
+                                          _buildTimeCheckbox("3분 SET", '3M'),
+                                          _buildTimeCheckbox("2분 SET", '2M'),
+                                          _buildTimeCheckbox("30초 SET", '30S'),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    // KPA 묶음
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // _buildKpaCheckbox("62 KPA", 62),
+                                          _buildKpaCheckbox("65 KPA", 65),
+                                          _buildKpaCheckbox("80 KPA", 80),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 12),
+                                const Text("□ 30초 사용시는 테스트에서만 적용됩니다"),
+                              ],
                             ),
                           ),
                         ),
-                        const SizedBox(height: 12),
-
-                        // VAC / CHK / STOP(SAVE) 버튼들
-                        Row(
-                          children: [
-                            Expanded(
-                              child: _blinkWrapper(
-                                active: _isMeasuring && _currentPkck == 'PAK',
-                                child: _buildBlueButton(
-                                  label: 'VAC',
-                                  onPressed: _vacButtonsEnabled ? _onVacPressed : null,
-                                  padding: const EdgeInsets.all(12),
-                                  fontSize: 22,
-                                  isRunning: _isMeasuring && _measureMode == MeasureMode.vac, // ? ??? ??
-                                ),
-                                /*
-                                child: ElevatedButton(
-                                  style: _mainButtonStyle(_vacButtonsEnabled),
-                                  onPressed: _vacButtonsEnabled ? _onVacPressed : null,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      if (_isMeasuring && _currentPkck == 'PAK')
-                                        const Icon(Icons.play_arrow, size: 24),
-                                      const SizedBox(width: 4),
-                                      const Text("VAC", style: TextStyle(fontSize: 22)),
-                                    ],
-                                  ),
-                                ),
-                                */
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: _blinkWrapper(
-                                active: _isMeasuring && _currentPkck == 'CHUCK',
-                                child: _buildBlueButton(
-                                  label: 'CHK',
-                                  onPressed: _vacButtonsEnabled ? _onChkPressed : null,
-                                  padding: const EdgeInsets.all(12),
-                                  fontSize: 22,
-                                  isRunning: _isMeasuring && _measureMode == MeasureMode.chk, // ? ??? ??
-                                ),
-                                /*
-                                child: ElevatedButton(
-                                  style: _mainButtonStyle(_vacButtonsEnabled),
-                                  onPressed: _vacButtonsEnabled ? _onChkPressed : null,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      if (_isMeasuring && _currentPkck == 'CHUCK')
-                                        const Icon(Icons.play_arrow, size: 24),
-                                      const SizedBox(width: 4),
-                                      const Text("CHK", style: TextStyle(fontSize: 22)),
-                                    ],
-                                  ),
-                                ),
-                                */
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: _buildBlueButton(
-                                label: 'STOP(SAVE)',
-                                onPressed: _stopEnabled ? _onStopPressed : null,
-                                padding: const EdgeInsets.all(12),
-                                fontSize: 22,
-                                isRunning: _isMeasuring, // STOP? ????? ??? ???? ??? true
-                              ),
-                              /*
-                              child: ElevatedButton(
-                                style: _mainButtonStyle(_stopEnabled),
-                                onPressed: _stopEnabled ? _onStopPressed : null,
-                                child: const Padding(
-                                  padding: EdgeInsets.all(12),
-                                  child: Text("STOP(SAVE)", style: TextStyle(fontSize: 22)),
-                                ),
-                              ),
-                              */
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-
-                        // 시간 SET + KPA SET 그룹
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            // 시간 SET 묶음
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  _buildTimeCheckbox("수동 SET", 'MANUAL'),
-                                  _buildTimeCheckbox("5분 SET", '5M'),
-                                  _buildTimeCheckbox("3분 SET", '3M'),
-                                  _buildTimeCheckbox("2분 SET", '2M'),
-                                  _buildTimeCheckbox("30초 SET", '30S'),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            // KPA 묶음
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // _buildKpaCheckbox("62 KPA", 62),
-                                  _buildKpaCheckbox("65 KPA", 65),
-                                  _buildKpaCheckbox("80 KPA", 80),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        const Text("□ 30초 사용시는 테스트에서만 적용됩니다"),
                       ],
                     ),
                   ),
@@ -999,13 +1099,15 @@ class _VacuumScreenState extends State<VacuumScreen>
                           width: double.infinity,
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.blue, width: 2),
+                            color: Colors.blue,
                           ),
                           child: const Center(
                             child: Text(
-                              "ONSEMI 1호기",
+                              "ONSEMI 2호기",
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
+                                color: Colors.white,
                               ),
                             ),
                           ),
@@ -1032,66 +1134,94 @@ class _VacuumScreenState extends State<VacuumScreen>
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.blue, width: 2),
                             ),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    "VACUUM",
-                                    style: TextStyle(fontSize: 26),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    "STATE: $_selectedKpa KPA",
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    "TIME: ${_timeLabelForStatus()}",
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    "START: ${_currentStartP.toStringAsFixed(1)} KPA",
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  Text(
-                                    "STOP:  ${_currentStopP.toStringAsFixed(1)} KPA",
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  Text(
-                                    "ΔP: ${_currentDiff.toStringAsFixed(2)} KPA",
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  Text(
-                                    "TIME: ${_elapsedSec.toStringAsFixed(1)}s",
-                                    style: const TextStyle(fontSize: 18),
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    _currentPass
-                                        ? "RESULT: PASS"
-                                        : "RESULT: FAIL",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: _currentPass
-                                          ? Colors.green
-                                          : Colors.red,
+                            child: LayoutBuilder(
+                              builder: (context, constraints) {
+                                return SingleChildScrollView(
+                                  child: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      minHeight: constraints.maxHeight,
                                     ),
-                                  ),
-                                  if (_currentStopFlag)
-                                    const Padding(
-                                      padding: EdgeInsets.only(top: 4),
-                                      child: Text(
-                                        "(측정 종료 조건 만족)",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.orange),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            "VACUUM",
+                                            style: TextStyle(
+                                              fontSize: 26,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            "STATE: $_selectedKpa KPA",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            "TIME: ${_timeLabelForStatus()}",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            "START: ${_currentStartP.toStringAsFixed(1)} KPA",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            "STOP:  ${_currentStopP.toStringAsFixed(1)} KPA",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            "ΔP: ${_currentDiff.toStringAsFixed(2)} KPA",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            "TIME: ${_elapsedSec.toStringAsFixed(1)}s",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            _currentPass
+                                                ? "RESULT: PASS"
+                                                : "RESULT: FAIL",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: _currentPass
+                                                  ? Colors.green
+                                                  : Colors.red,
+                                            ),
+                                          ),
+                                          if (_currentStopFlag)
+                                            const Padding(
+                                              padding: EdgeInsets.only(top: 4),
+                                              child: Text(
+                                                "(측정 종료 조건 만족)",
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.orange,
+                                                ),
+                                              ),
+                                            ),
+                                        ],
                                       ),
                                     ),
-                                ],
-                              ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -1115,7 +1245,7 @@ class _VacuumScreenState extends State<VacuumScreen>
       contentPadding: EdgeInsets.zero,
       title: Text(
         label,
-        style: const TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 20, color: Colors.black87),
       ),
       value: _selectedTime == value,
       onChanged: (_) {
@@ -1133,7 +1263,7 @@ class _VacuumScreenState extends State<VacuumScreen>
       contentPadding: EdgeInsets.zero,
       title: Text(
         label,
-        style: const TextStyle(fontSize: 18),
+        style: const TextStyle(fontSize: 22, color: Colors.black87),
       ),
       value: _selectedKpa == value,
       onChanged: (_) {
@@ -1154,8 +1284,6 @@ class VacuumPressureChartContainer extends StatelessWidget {
   final double maxX;
   final double minY;
   final double maxY;
-
-  static const double _lclValue = -1.0;
 
   const VacuumPressureChartContainer({
     super.key,
@@ -1204,7 +1332,7 @@ class VacuumPressureChart extends StatelessWidget {
   final double minY;
   final double maxY;
 
-  static const double _ucl = 1.0;  // UCL
+  static const double _ucl = 1.0; // UCL
   static const double _lcl = -1.0; // LCL
 
   const VacuumPressureChart({
@@ -1271,7 +1399,7 @@ class VacuumPressureChart extends StatelessWidget {
               show: true,
               getDotPainter: (spot, percent, barData, index) {
                 final outOfSpec = (spot.y < _lcl) || (spot.y > _ucl);
-    
+
                 return FlDotCirclePainter(
                   radius: 3,
                   color: outOfSpec ? Colors.red : Colors.blue, // ???? ??

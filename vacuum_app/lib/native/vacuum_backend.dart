@@ -177,33 +177,42 @@ class VacuumNative {
 
   DynamicLibrary _openLib() {
     if (Platform.isLinux) {
-      final linuxPath =
-          '/home/nsyun/mnt/development/engr/Programming/SERA_VACU/VACUUM_FLUT/'
-          'vacuum_demo/cpp_backend/linuxbuild/libvacuum_backend.so';
+      final cwd = Directory.current.path;
 
-      if (File(linuxPath).existsSync()) {
-        return DynamicLibrary.open(linuxPath);
+      // Prefer local dev builds (so changes in cpp_backend are reflected in the app).
+      // Typical run cwd is the flutter project root, but we also try workspace-root style.
+      final candidates = <String>[
+        '$cwd/../vacuum_demo/cpp_backend/build/libvacuum_backend.so',
+        '$cwd/../vacuum_demo/cpp_backend/linuxbuild/libvacuum_backend.so',
+        '$cwd/vacuum_demo/cpp_backend/build/libvacuum_backend.so',
+        '$cwd/vacuum_demo/cpp_backend/linuxbuild/libvacuum_backend.so',
+      ];
+
+      for (final path in candidates) {
+        if (File(path).existsSync()) {
+          return DynamicLibrary.open(path);
+        }
       }
 
-      // fallback: 실행 디렉토리
+      // fallback: system search path / executable directory
       return DynamicLibrary.open('libvacuum_backend.so');
     }
 
     if (Platform.isWindows) {
-      // 1️⃣ 우선 고정 경로
-      final fixedPath =
-          r'C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\Release\\vacuum_backend.dll';
-
-      if (File(fixedPath).existsSync()) {
-        return DynamicLibrary.open(fixedPath);
-      }
-
-      // 2️⃣ fallback: 실행 중인 exe 디렉토리
+      // 1️⃣ 배포 시 가장 일반적: 실행 중인 exe 디렉토리 (같은 폴더에 DLL 배치)
       final exeDir = File(Platform.resolvedExecutable).parent.path;
-      final localPath = '$exeDir\\vacuum_backend.dll';
 
-      if (File(localPath).existsSync()) {
-        return DynamicLibrary.open(localPath);
+      final candidates = <String>[
+        '$exeDir\\vacuum_backend.dll',
+        '${Directory.current.path}\\vacuum_backend.dll',
+        // 2️⃣ 개발 환경 fallback (특정 PC 경로에만 존재할 수 있음)
+        r'C:\\VACUUM\\VACUUM_FLUT\\vacuum_demo\\cpp_backend\\build\\Release\\vacuum_backend.dll',
+      ];
+
+      for (final path in candidates) {
+        if (File(path).existsSync()) {
+          return DynamicLibrary.open(path);
+        }
       }
 
       throw Exception('vacuum_backend.dll not found');

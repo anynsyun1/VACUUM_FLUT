@@ -206,6 +206,7 @@ bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressur
         qDebug() << "start pressure :" << pSt;
         qDebug() << "stop pressure :" << pSp;
         qDebug() << "diff pressure :" << diffPressure;
+        qDebug() << "STARTOFFSET :" << STARTOFFSET;
         // over STARTOFFSET but not yet averaging done
     } else if ( counter > STARTOFFSET*DIV && counter <=  (STARTOFFSET*DIV+MAXAVG))
     {
@@ -214,9 +215,9 @@ bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressur
         diffPressure = 0.0;
         startpress = pSt = averaging(st_avgpress, outPressure,  stcntPtr);
         stoppress = pSp  = averaging(sp_avgpress, outPressure,  spcntPtr);
-        if(startpress > 65.0)
+        if(startpress > 65.5)
         {
-            offsetpress = startpress -65.0;
+            offsetpress = startpress -65.5;
         } else {
             offsetpress = 0.0f;
         }
