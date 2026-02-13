@@ -20,7 +20,7 @@ class VacuumDB {
 
     if (Platform.isWindows) {
         
-      dbFilePath = 'C:\DATA\\vacuums.db';
+      dbFilePath = 'C:\\DATA\\vacuums.db';
       if (!File(dbFilePath).existsSync()) {
         //throw Exception("vacuums.db 파일을 찾을 수 없습니다: $dbFilePath");
         dbFilePath = 'C:\\VACUUM\\VACUUM_FLUT\\DATA\\vacuums.db';

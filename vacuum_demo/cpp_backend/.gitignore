@@ -1,0 +1,13 @@
+# Local build outputs (Linux)
+build_linux/
+build-linux/
+
+# Common CMake outputs (if generated elsewhere)
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Shared libraries
+*.so
+*.so.*

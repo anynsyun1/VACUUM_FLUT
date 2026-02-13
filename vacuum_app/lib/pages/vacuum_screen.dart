@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-import 'native/vacuum_backend.dart';
-import 'pages/data_management_page.dart';
+import '../native/vacuum_backend.dart';
+import 'data_management_page.dart';
 
 /// VACUUM 메인 화면
 class VacuumScreen extends StatefulWidget {
@@ -42,15 +42,6 @@ class _VacuumScreenState extends State<VacuumScreen> {
   int _stepIndex = 0;
 
   // 실시간 압력 / 결과
-  final double _currentPressure = 0.0;
-  final bool _currentPass = true;
-
-  // 차트용 데이터
-  final List<FlSpot> _spots = [];
-  final double _elapsedSec = 0;
-
-  Timer? _vacTimer;
-
   // 차트용 데이터 (x: step index, y: 압력 변화)
   final List<FlSpot> _chartSpots = [];
 
@@ -58,11 +49,10 @@ class _VacuumScreenState extends State<VacuumScreen> {
   void initState() {
     super.initState();
     backend = VacuumNative();
-    backend.vacuumInit();
+    backend.init();
 
     // 초기 모드 C++에도 전달
-    backend.vacuumSetTimeMode(_mapTimeModeToCode(_selectedTime));
-    backend.vacuumSetPressureMode(_selectedKpa);
+    backend.configureModes(_mapTimeModeToCode(_selectedTime), _selectedKpa);
 
     _refreshPorts();
     _connected = backend.isConnected();
@@ -175,11 +165,10 @@ class _VacuumScreenState extends State<VacuumScreen> {
     if (_measuring) return;
 
     // 시간 / 압력 설정을 C++에 전달
-    backend.vacuumSetTimeMode(_mapTimeModeToCode(_selectedTime));
-    backend.vacuumSetPressureMode(_selectedKpa);
+    backend.configureModes(_mapTimeModeToCode(_selectedTime), _selectedKpa);
 
     // 시퀀스 시작
-    backend.vacuumStart();
+    backend.start();
 
     _timer?.cancel();
     _stepIndex = 0;
@@ -189,9 +178,9 @@ class _VacuumScreenState extends State<VacuumScreen> {
     });
 
     _timer = Timer.periodic(const Duration(milliseconds: 200), (_) {
-      backend.vacuumStep();
-      final p = backend.vacuumGetLastPressure();
-      final pass = backend.vacuumGetLastPass() == 1;
+      backend.step();
+      final p = backend.getLastPressure();
+      final pass = backend.getLastPass();
 
       setState(() {
         _pressure = p;
@@ -519,14 +508,31 @@ class _VacuumScreenState extends State<VacuumScreen> {
                           children: [
                             // 시간 SET 묶음
                             Expanded(
-                              child: Column(
+                              child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  _buildTimeCheckbox("수동 SET", 'MANUAL'),
-                                  _buildTimeCheckbox("5분 SET", '5M'),
-                                  _buildTimeCheckbox("3분 SET", '3M'),
-                                  _buildTimeCheckbox("2분 SET", '2M'),
-                                  _buildTimeCheckbox("30초 SET", '30S'),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        _buildTimeCheckbox("수동 SET", 'MANUAL'),
+                                        _buildTimeCheckbox("5분 SET", '5M'),
+                                        _buildTimeCheckbox("3분 SET", '3M'),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        _buildTimeCheckbox("2분 SET", '2M'),
+                                        _buildTimeCheckbox("30초 SET", '30S'),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -537,8 +543,31 @@ class _VacuumScreenState extends State<VacuumScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   _buildKpaCheckbox("62 KPA", 62),
-                                  _buildKpaCheckbox("65 KPA", 65),
-                                  _buildKpaCheckbox("80 KPA", 80),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      border: Border(
+                                        left: BorderSide(
+                                          color: Colors.black26,
+                                          width: 1,
+                                        ),
+                                      ),
+                                    ),
+                                    padding: const EdgeInsets.only(left: 8),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        _buildKpaCheckbox(
+                                          "65 KPA",
+                                          65,
+                                        ),
+                                        _buildKpaCheckbox(
+                                          "80 KPA",
+                                          80,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -659,7 +688,7 @@ class _VacuumScreenState extends State<VacuumScreen> {
                 _selectedTime = value;
               });
               // C++에도 반영
-              backend.vacuumSetTimeMode(_mapTimeModeToCode(value));
+              backend.configureModes(_mapTimeModeToCode(value), _selectedKpa);
             },
       controlAffinity: ListTileControlAffinity.leading,
     );
@@ -680,7 +709,10 @@ class _VacuumScreenState extends State<VacuumScreen> {
               setState(() {
                 _selectedKpa = value;
               });
-              backend.vacuumSetPressureMode(value);
+              backend.configureModes(
+                _mapTimeModeToCode(_selectedTime),
+                value,
+              );
             },
       controlAffinity: ListTileControlAffinity.leading,
     );

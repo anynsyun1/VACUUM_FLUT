@@ -191,21 +191,21 @@ class _VacuumScreenState extends State<VacuumScreen>
             child: ElevatedButton(
               onPressed: onPressed,
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(padding),
+                padding: WidgetStateProperty.all(padding),
                 minimumSize: fixedHeight == null
                     ? null
-                    : MaterialStateProperty.all(Size.fromHeight(fixedHeight)),
-                shape: MaterialStateProperty.all(
+                    : WidgetStateProperty.all(Size.fromHeight(fixedHeight)),
+                shape: WidgetStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                backgroundColor: MaterialStateProperty.resolveWith((states) {
-                  if (states.contains(MaterialState.disabled)) return null;
+                backgroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.disabled)) return null;
                   return Colors.blue;
                 }),
-                foregroundColor: MaterialStateProperty.resolveWith((states) {
-                  if (states.contains(MaterialState.disabled)) {
+                foregroundColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.disabled)) {
                     return disabledForegroundColor;
                   }
                   return Colors.white;
@@ -1045,18 +1045,47 @@ class _VacuumScreenState extends State<VacuumScreen>
                                   children: [
                                     // 시간 SET 묶음
                                     Expanded(
-                                      child: Column(
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          _buildTimeCheckbox(
-                                            "수동 SET",
-                                            'MANUAL',
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                _buildTimeCheckbox(
+                                                  "수동 SET",
+                                                  'MANUAL',
+                                                ),
+                                                _buildTimeCheckbox(
+                                                  "5분 SET",
+                                                  '5M',
+                                                ),
+                                                _buildTimeCheckbox(
+                                                  "3분 SET",
+                                                  '3M',
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          _buildTimeCheckbox("5분 SET", '5M'),
-                                          _buildTimeCheckbox("3분 SET", '3M'),
-                                          _buildTimeCheckbox("2분 SET", '2M'),
-                                          _buildTimeCheckbox("30초 SET", '30S'),
+                                          const SizedBox(width: 12),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                _buildTimeCheckbox(
+                                                  "2분 SET",
+                                                  '2M',
+                                                ),
+                                                _buildTimeCheckbox(
+                                                  "30초 SET",
+                                                  '30S',
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -1068,8 +1097,32 @@ class _VacuumScreenState extends State<VacuumScreen>
                                             CrossAxisAlignment.start,
                                         children: [
                                           // _buildKpaCheckbox("62 KPA", 62),
-                                          _buildKpaCheckbox("65 KPA", 65),
-                                          _buildKpaCheckbox("80 KPA", 80),
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                              border: Border(
+                                                left: BorderSide(
+                                                  color: Colors.black26,
+                                                  width: 1,
+                                                ),
+                                              ),
+                                            ),
+                                            padding:
+                                                const EdgeInsets.only(left: 8),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                _buildKpaCheckbox(
+                                                  "65 KPA",
+                                                  65,
+                                                ),
+                                                _buildKpaCheckbox(
+                                                  "80 KPA",
+                                                  80,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         ],
                                       ),
                                     ),
