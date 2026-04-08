@@ -68,6 +68,9 @@ typedef _VoidD = void Function();
 typedef _SetModeC = Void Function(Int32);
 typedef _SetModeD = void Function(int);
 
+typedef _SetVacStartOffsetC = Void Function(Int32);
+typedef _SetVacStartOffsetD = void Function(int);
+
 typedef _ConnectC = Int32 Function(Pointer<Utf8>);
 typedef _ConnectD = int Function(Pointer<Utf8>);
 
@@ -101,6 +104,7 @@ class VacuumNative {
   late final _VoidD _vacuumInit;
   late final _SetModeD _vacuumSetTimeMode;
   late final _SetModeD _vacuumSetPressureMode;
+  late final _SetVacStartOffsetD _vacuumSetVacStartOffset;
   late final _VoidD _vacuumStart;
   late final _VoidD _vacuumStep;
   late final _GetPressureD _vacuumGetLastPressure;
@@ -129,6 +133,12 @@ class VacuumNative {
 
     _vacuumSetPressureMode = _lib
         .lookup<NativeFunction<_SetModeC>>('vacuum_set_pressure_mode')
+        .asFunction();
+
+    _vacuumSetVacStartOffset = _lib
+        .lookup<NativeFunction<_SetVacStartOffsetC>>(
+          'vacuum_set_vac_start_offset',
+        )
         .asFunction();
 
     _vacuumStart =
@@ -230,9 +240,12 @@ class VacuumNative {
 
   void init() => _vacuumInit();
 
-  void configureModes(int timeMode, int pressureKpa) {
+  void configureModes(int timeMode, int pressureKpa, {int? vacStartOffsetSec}) {
     _vacuumSetTimeMode(timeMode);
     _vacuumSetPressureMode(pressureKpa);
+    if (vacStartOffsetSec != null) {
+      _vacuumSetVacStartOffset(vacStartOffsetSec);
+    }
   }
 
   void start() => _vacuumStart();

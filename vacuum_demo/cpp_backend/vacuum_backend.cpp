@@ -53,6 +53,16 @@ void VacuumBackend::setPressureMode(int kpa)
     qDebug() << "[Backend] setPressureMode:" << kpa << "kPa";
 }
 
+void VacuumBackend::setVacStartOffsetSec(int seconds)
+{
+    if (seconds <= 0) {
+        qWarning() << "[Backend] setVacStartOffsetSec: invalid" << seconds;
+        return;
+    }
+    vacStartOffsetSec_ = seconds;
+    qDebug() << "[Backend] setVacStartOffsetSec:" << vacStartOffsetSec_;
+}
+
 void VacuumBackend::start()
 {
     elapsedSteps_  = 0;
@@ -162,18 +172,20 @@ bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressur
     float hval = 0.0;
     float hrate = 0.0;
 
+    const bool isManualMode = (timeMode_ == 1) || (configuredDuration_ == 0);
+
     if(channel == 1) {
         //direction = "PAK";
         hrate = 0.5;
-        STARTOFFSET = 18;
+        STARTOFFSET = vacStartOffsetSec_;
     } else if (channel == 2 ) {
         //direction = "CHUCK";
         hrate = 0.6;
-        STARTOFFSET = 7;
+        STARTOFFSET = chkStartOffsetSec_;
 
     } else {
         hrate = 1.0;
-        STARTOFFSET = 7;    
+        STARTOFFSET = chkStartOffsetSec_;
     } 
 
     if (!isConnected()) {
@@ -229,8 +241,8 @@ bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressur
         qDebug() << "stop pressure :" << pSp;
         qDebug() << "diff pressure :" << diffPressure;
 
-    // measuring time 
-    } else if (counter > (STARTOFFSET*DIV+MAXAVG)  && counter <= (configuredDuration_+STARTOFFSET)*DIV+MAXAVG)
+    // measuring time (MANUAL: treat as infinite duration)
+    } else if (counter > (STARTOFFSET*DIV+MAXAVG)  && (isManualMode || counter <= (configuredDuration_+STARTOFFSET)*DIV+MAXAVG))
     {
         pSp  = averaging(sp_avgpress, outPressure,  spcntPtr);
         pSp = pSp - offsetpress;
@@ -254,7 +266,7 @@ bool VacuumBackend::measureAndDecide(int channel, int counter, float& outPressur
             stop = false;
         } else {
             pass = false;
-            stop = true;
+            stop = !isManualMode;
         }
         qDebug() << "Ranger BTW AVG AND DURATION:" <<counter;
         qDebug() << "pressure :" << outPressure;

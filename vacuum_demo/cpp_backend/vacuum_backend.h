@@ -53,6 +53,9 @@ public:
     void setTimeMode(int mode);
     void setPressureMode(int kpa);
 
+    // VAC 준비시간(STARTOFFSET) 설정 (초)
+    void setVacStartOffsetSec(int seconds);
+
     void start();   // Flutter
     void step();    // Flutter 
 
@@ -107,6 +110,10 @@ private:
     // 
     float lastPressure_ = 0.0f;
     bool  lastPass_     = true;
+
+    // 준비시간(STARTOFFSET) (초)
+    int vacStartOffsetSec_ = 25;
+    int chkStartOffsetSec_ = 7;
 
     int flag=0;
     int comflag=0;

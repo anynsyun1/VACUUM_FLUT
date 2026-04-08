@@ -30,6 +30,11 @@ EXPORT void vacuum_set_pressure_mode(int kpa)
     VacuumBackend::instance().setPressureMode(kpa);
 }
 
+EXPORT void vacuum_set_vac_start_offset(int seconds)
+{
+    VacuumBackend::instance().setVacStartOffsetSec(seconds);
+}
+
 
 EXPORT void vacuum_start()
 {

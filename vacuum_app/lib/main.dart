@@ -63,6 +63,9 @@ class _VacuumScreenState extends State<VacuumScreen>
   // KPA 그룹 : 62, 65, 80
   int _selectedKpa = 65;
 
+  // 준비시간(VAC) 그룹 : 25초, 45초, 55초
+  int _selectedPrepVacSec = 25;
+
   // 데이터 관리 모드: true이면 VAC/CHK/STOP 비활성화
   bool _isDataManagementMode = false;
 
@@ -94,7 +97,7 @@ class _VacuumScreenState extends State<VacuumScreen>
     // C++ cpp_backend 기준과 동기화 필요
     // channel 1: VAC (PAK)
     // channel 2: CHK (CHUCK)
-    if (channel == 1) return 18;
+    if (channel == 1) return _selectedPrepVacSec;
     if (channel == 2) return 7;
     return 7;
   }
@@ -432,7 +435,11 @@ class _VacuumScreenState extends State<VacuumScreen>
     }
 
     // C++ 백엔드에 현재 모드 전달
-    _backend.configureModes(_timeModeValue(), _selectedKpa);
+    _backend.configureModes(
+      _timeModeValue(),
+      _selectedKpa,
+      vacStartOffsetSec: _selectedPrepVacSec,
+    );
     _backend.start();
 
     // 차트/표시 오프셋을 채널별 STARTOFFSET(초)에 맞춰 동기화
@@ -1043,6 +1050,26 @@ class _VacuumScreenState extends State<VacuumScreen>
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    // 준비시간(VAC) 묶음 (첫번째 컬럼)
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            '준비시간(VAC)',
+                                            style: TextStyle(
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          _buildPrepVacCheckbox('25초', 25),
+                                          _buildPrepVacCheckbox('45초', 45),
+                                          _buildPrepVacCheckbox('55초', 55),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(width: 12),
                                     // 시간 SET 묶음
                                     Expanded(
                                       child: Row(
@@ -1322,6 +1349,24 @@ class _VacuumScreenState extends State<VacuumScreen>
       onChanged: (_) {
         setState(() {
           _selectedKpa = value;
+        });
+      },
+      controlAffinity: ListTileControlAffinity.leading,
+    );
+  }
+
+  Widget _buildPrepVacCheckbox(String label, int seconds) {
+    return CheckboxListTile(
+      dense: true,
+      contentPadding: EdgeInsets.zero,
+      title: Text(
+        label,
+        style: const TextStyle(fontSize: 22, color: Colors.black87),
+      ),
+      value: _selectedPrepVacSec == seconds,
+      onChanged: (_) {
+        setState(() {
+          _selectedPrepVacSec = seconds;
         });
       },
       controlAffinity: ListTileControlAffinity.leading,

@@ -1,0 +1,32 @@
+Chat log (saved: 2026-04-08)
+
+User: Hi~
+Assistant: Hi — what are you working on today in this repo?
+
+User: Do u know why it sop on manual mode?
+Assistant: I can help—I'll inspect the backend for manual mode logic and stop conditions.
+
+User: It should be stop if i click stop!
+Assistant: Agreed; the backend is auto-setting stop=true. I’ll change manual mode to stop only on explicit stop.
+
+Assistant: Root cause found: setTimeMode(1) -> configuredDuration_=0; measureAndDecide() enters OVER DURATION and sets stop=true.
+Assistant: Fix applied in C++ backend so manual mode doesn’t auto-stop; rebuilt libvacuum_backend.so.
+
+User: Then I want to know why the ready time is same to all selections "25, 45, 55", Pls check it.
+Assistant: Traced UI -> FFI -> backend. Found UI logic hard-coded VAC start offset.
+Assistant: Fix applied: VAC start offset now uses selected prep seconds; no CHK change.
+
+User: Pls talk to me in Korean!
+Assistant: 네, 앞으로 한국어로만 답변할게요.
+
+User: it is working !
+Assistant: 좋아요. (추가로 CHK 준비시간은 그대로 두는 걸로 확인)
+
+User: No CHK should not be required to adapt it
+Assistant: 네, CHK는 고정으로 두겠습니다.
+
+User: Done!
+Assistant: 요약: (1) MANUAL 자동정지 수정 (2) VAC 준비시간 선택값 반영.
+
+User: then attach the chating to chat.txt
+Assistant: (This file was created and the chat content was saved.)
